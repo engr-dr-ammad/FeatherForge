@@ -1,0 +1,318 @@
+{
+  "project": "5b583add90404457b146a2fa152b7f19",
+  "model": "Qwen2.5-Coder-7B-Instruct Q2_K",
+  "starter_assisted": true,
+  "recovered_after_environment_restart": true,
+  "tasks": [
+    {
+      "id": "1e3aa860d8e34f34adb5a24213125adb",
+      "project": "5b583add90404457b146a2fa152b7f19",
+      "title": "Build task tracker",
+      "role": "frontend",
+      "kind": "implementation",
+      "state": "completed",
+      "deps": [],
+      "acceptance": [
+        "add, complete, delete, persist tasks"
+      ],
+      "context": {
+        "brief": "Build a small accessible task tracker web app. Add tasks, mark complete, delete, persist after reload. Self-contained index.html. Use a labeled textbox, Add task button, checkbox and Delete buttons.",
+        "acceptance": [
+          "add, complete, delete, persist tasks"
+        ],
+        "decisions": [
+          {
+            "id": 1,
+            "project": "5b583add90404457b146a2fa152b7f19",
+            "version": 1,
+            "body": "Initial brief: Build a small accessible task tracker web app. Add tasks, mark complete, delete, persist after reload. Self-contained index.html. Use a labeled textbox, Add task button, checkbox and Delete buttons.",
+            "created": 1794514035.2836132
+          }
+        ],
+        "role_instructions": "Build accessible web interfaces with semantic HTML and keyboard support.",
+        "output_schema": {
+          "files": {
+            "index.html": "complete self-contained accessible task tracker HTML/JS/CSS"
+          },
+          "summary": "concise observable changes"
+        },
+        "starter_html": "<!doctype html>\n<html lang=\"en\">\n<meta charset=\"utf-8\">\n<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n<title>Task Tracker</title>\n<h1>Task Tracker</h1>\n<form id=\"form\">\n  <label for=\"title\">New task</label>\n  <input id=\"title\" required maxlength=\"160\">\n  <button type=\"submit\">Add task</button>\n</form>\n<ul id=\"tasks\"></ul>\n<script>\n// Implement the application below. This starter contains NO behavior.\n// Use one array loaded from localStorage.getItem('tasks') or [].\n// persist(): save the array to localStorage and call render().\n// render(): replace children of #tasks only, never the form or body.\n// For each task, create li, input checkbox, span with textContent, Delete button.\n// Checkbox change: update task.done and persist().\n// Delete click: remove the task by unique id from the global array and persist().\n// Form submit: preventDefault, trim #title, append {id,title,done:false}, clear,\n// and persist(). Use stable unique IDs and ignore empty strings.\n// Call render() once on page load. All state changes must persist after reload.\n</script>\n</html>\n",
+        "starter_instruction": "Complete the missing JavaScript in this explicit starter. Preserve its form and tasks list. No CSS or extra features are needed. Return the complete HTML file.",
+        "constraints": "No dependencies, network calls, remote assets, or backend. Add task via labeled input and Add task button, checkbox complete, Delete button, localStorage persistence. Use textContent for user input. The textbox MUST have an actual label element with matching for/id, or aria-label; placeholder alone is NOT accessible. Render task titles in their own span. Use stable unique task ids. Keep one global tasks array; render() should take no arguments so deletion cannot shadow the global state. Persist after each change."
+      },
+      "workspace": "/workspace/FeatherForge/data-real-7b/workspaces/1e3aa860d8e34f34adb5a24213125adb/c24ea5f3cf414bb1be9ad7b47214f040",
+      "artifacts": {
+        "files": [
+          "index.html"
+        ],
+        "diff": "changes.diff",
+        "preview": "index.html",
+        "provider": "local OpenAI-compatible model",
+        "verification": "qa-result.json",
+        "review": "review.json"
+      },
+      "evidence": [
+        {
+          "verification_task": "cf25416f7d674008bf08c6f598e23043",
+          "review_task": "ad96d5ea429d45ab80fea3e2b650c2a9",
+          "passed": true
+        }
+      ],
+      "next_action": "Deliverable available for human inspection",
+      "retries": 0,
+      "budget": 600,
+      "checkpoint": {
+        "brief_version": 1,
+        "revision": 0,
+        "run_key": "c24ea5f3cf414bb1be9ad7b47214f040"
+      },
+      "run_key": "c24ea5f3cf414bb1be9ad7b47214f040",
+      "base_revision": 0
+    },
+    {
+      "id": "cf25416f7d674008bf08c6f598e23043",
+      "project": "5b583add90404457b146a2fa152b7f19",
+      "title": "Verify behavior",
+      "role": "qa",
+      "kind": "qa",
+      "state": "completed",
+      "deps": [
+        "1e3aa860d8e34f34adb5a24213125adb"
+      ],
+      "acceptance": [
+        "passing browser checks"
+      ],
+      "context": {
+        "brief_version": 1,
+        "brief": "Build a small accessible task tracker web app. Add tasks, mark complete, delete, persist after reload. Self-contained index.html. Use a labeled textbox, Add task button, checkbox and Delete buttons."
+      },
+      "workspace": "/workspace/FeatherForge/data-real-7b/workspaces/1e3aa860d8e34f34adb5a24213125adb/c24ea5f3cf414bb1be9ad7b47214f040",
+      "artifacts": {
+        "verification": "qa-result.json"
+      },
+      "evidence": [
+        {
+          "passed": true,
+          "exit_code": 0,
+          "tool": "docker isolated browser acceptance",
+          "command": [
+            "docker",
+            "run",
+            "[resource-limited executor]"
+          ],
+          "duration_seconds": 13.33,
+          "output": "127.0.0.1 - - [12/Nov/2026 20:13:58] \"GET / HTTP/1.1\" 200 -\n127.0.0.1 - - [12/Nov/2026 20:13:58] \"GET / HTTP/1.1\" 304 -\n127.0.0.1 - - [12/Nov/2026 20:13:58] \"GET / HTTP/1.1\" 304 -\n127.0.0.1 - - [12/Nov/2026 20:13:58] \"GET / HTTP/1.1\" 304 -\nPASS: add, persist, complete, delete, HTML injection, accessible input, no browser exceptions\n",
+          "simulated": false
+        }
+      ],
+      "next_action": "Reviewer must inspect passing evidence",
+      "retries": 0,
+      "budget": 600,
+      "checkpoint": {
+        "brief_version": 1,
+        "revision": 1,
+        "run_key": "1d611e3fd9c14c6fbd233398bc7393d3"
+      },
+      "run_key": "1d611e3fd9c14c6fbd233398bc7393d3",
+      "base_revision": 1
+    },
+    {
+      "id": "ad96d5ea429d45ab80fea3e2b650c2a9",
+      "project": "5b583add90404457b146a2fa152b7f19",
+      "title": "Review code",
+      "role": "reviewer",
+      "kind": "review",
+      "state": "completed",
+      "deps": [
+        "cf25416f7d674008bf08c6f598e23043"
+      ],
+      "acceptance": [
+        "review approved"
+      ],
+      "context": {
+        "brief_version": 1,
+        "brief": "Build a small accessible task tracker web app. Add tasks, mark complete, delete, persist after reload. Self-contained index.html. Use a labeled textbox, Add task button, checkbox and Delete buttons."
+      },
+      "workspace": "/workspace/FeatherForge/data-real-7b/workspaces/1e3aa860d8e34f34adb5a24213125adb/c24ea5f3cf414bb1be9ad7b47214f040",
+      "artifacts": {
+        "review": "review.json"
+      },
+      "evidence": [
+        {
+          "approved": true,
+          "summary": "The code is correct, maintainable, and meets the acceptance criteria. The web app allows adding tasks, marking them as complete, deleting them, and persists the data after reload. The HTML is accessible, and there are no browser exceptions. The code is self-contained and uses localStorage for persistence.",
+          "_usage": {
+            "prompt_tokens": 1172,
+            "completion_tokens": 73,
+            "total_tokens": 1245
+          },
+          "_model": "qwen-coder-7b-local"
+        }
+      ],
+      "next_action": "Deliverable available for human inspection",
+      "retries": 1,
+      "budget": 600,
+      "checkpoint": {
+        "brief_version": 1,
+        "revision": 1,
+        "run_key": "e4c0db749b4c4db8984ab70767726ed3"
+      },
+      "run_key": "e4c0db749b4c4db8984ab70767726ed3",
+      "base_revision": 1
+    }
+  ],
+  "events": [
+    {
+      "id": 19,
+      "project": "5b583add90404457b146a2fa152b7f19",
+      "task": "ad96d5ea429d45ab80fea3e2b650c2a9",
+      "kind": "checkpoint",
+      "message": "Execution checkpoint saved",
+      "created": 1794515109.6826549
+    },
+    {
+      "id": 18,
+      "project": "5b583add90404457b146a2fa152b7f19",
+      "task": "ad96d5ea429d45ab80fea3e2b650c2a9",
+      "kind": "review",
+      "message": "The code is correct, maintainable, and meets the acceptance criteria. The web app allows adding tasks, marking them as complete, deleting them, and persists the data after reload. The HTML is accessible, and there are no browser exceptions. The code is self-contained and uses localStorage for persistence.",
+      "created": 1794515109.680917
+    },
+    {
+      "id": 17,
+      "project": "5b583add90404457b146a2fa152b7f19",
+      "task": "ad96d5ea429d45ab80fea3e2b650c2a9",
+      "kind": "usage",
+      "message": "{\"model\": \"qwen-coder-7b-local\", \"tokens\": {\"prompt_tokens\": 1172, \"completion_tokens\": 73, \"total_tokens\": 1245}, \"duration_seconds\": 121.52}",
+      "created": 1794515109.6737173
+    },
+    {
+      "id": 16,
+      "project": "5b583add90404457b146a2fa152b7f19",
+      "task": "ad96d5ea429d45ab80fea3e2b650c2a9",
+      "kind": "model",
+      "message": "Review exact artifact snapshot and recorded QA evidence with local OpenAI-compatible model",
+      "created": 1794514988.1481774
+    },
+    {
+      "id": 15,
+      "project": "5b583add90404457b146a2fa152b7f19",
+      "task": "ad96d5ea429d45ab80fea3e2b650c2a9",
+      "kind": "started",
+      "message": "Task claimed; reviewer",
+      "created": 1794514988.1407256
+    },
+    {
+      "id": 14,
+      "project": "5b583add90404457b146a2fa152b7f19",
+      "task": "ad96d5ea429d45ab80fea3e2b650c2a9",
+      "kind": "recovery",
+      "message": "Execution interrupted; no uncertain operation automatically retried",
+      "created": 1794514631.4890444
+    },
+    {
+      "id": 13,
+      "project": "5b583add90404457b146a2fa152b7f19",
+      "task": "ad96d5ea429d45ab80fea3e2b650c2a9",
+      "kind": "model",
+      "message": "Review exact artifact snapshot and recorded QA evidence with local OpenAI-compatible model",
+      "created": 1794514439.4071276
+    },
+    {
+      "id": 12,
+      "project": "5b583add90404457b146a2fa152b7f19",
+      "task": "ad96d5ea429d45ab80fea3e2b650c2a9",
+      "kind": "started",
+      "message": "Task claimed; reviewer",
+      "created": 1794514439.4011025
+    },
+    {
+      "id": 11,
+      "project": "5b583add90404457b146a2fa152b7f19",
+      "task": "cf25416f7d674008bf08c6f598e23043",
+      "kind": "checkpoint",
+      "message": "Execution checkpoint saved",
+      "created": 1794514439.3976824
+    },
+    {
+      "id": 10,
+      "project": "5b583add90404457b146a2fa152b7f19",
+      "task": "cf25416f7d674008bf08c6f598e23043",
+      "kind": "tool",
+      "message": "Run fixed reference acceptance suite in resource-limited, networkless Docker container",
+      "created": 1794514425.7344067
+    },
+    {
+      "id": 9,
+      "project": "5b583add90404457b146a2fa152b7f19",
+      "task": "cf25416f7d674008bf08c6f598e23043",
+      "kind": "started",
+      "message": "Task claimed; qa",
+      "created": 1794514425.7275553
+    },
+    {
+      "id": 8,
+      "project": "5b583add90404457b146a2fa152b7f19",
+      "task": "1e3aa860d8e34f34adb5a24213125adb",
+      "kind": "checkpoint",
+      "message": "Execution checkpoint saved",
+      "created": 1794514425.7243142
+    },
+    {
+      "id": 7,
+      "project": "5b583add90404457b146a2fa152b7f19",
+      "task": "1e3aa860d8e34f34adb5a24213125adb",
+      "kind": "artifact",
+      "message": "Added task tracker functionality with add, complete, delete, and persistence. Tasks are stored in localStorage and rendered on page load.",
+      "created": 1794514425.7224438
+    },
+    {
+      "id": 6,
+      "project": "5b583add90404457b146a2fa152b7f19",
+      "task": "1e3aa860d8e34f34adb5a24213125adb",
+      "kind": "usage",
+      "message": "{\"model\": \"qwen-coder-7b-local\", \"tokens\": {\"prompt_tokens\": 924, \"completion_tokens\": 562, \"total_tokens\": 1486}, \"duration_seconds\": 274.83}",
+      "created": 1794514425.7116065
+    },
+    {
+      "id": 5,
+      "project": "5b583add90404457b146a2fa152b7f19",
+      "task": "1e3aa860d8e34f34adb5a24213125adb",
+      "kind": "model",
+      "message": "Request bounded implementation JSON from local OpenAI-compatible model with behavior-free HTML starter",
+      "created": 1794514150.8748379
+    },
+    {
+      "id": 4,
+      "project": "5b583add90404457b146a2fa152b7f19",
+      "task": "1e3aa860d8e34f34adb5a24213125adb",
+      "kind": "started",
+      "message": "Task claimed; frontend",
+      "created": 1794514150.8633986
+    },
+    {
+      "id": 3,
+      "project": "5b583add90404457b146a2fa152b7f19",
+      "task": null,
+      "kind": "approval",
+      "message": "Human approved plan and isolated execution",
+      "created": 1794514150.860912
+    },
+    {
+      "id": 2,
+      "project": "5b583add90404457b146a2fa152b7f19",
+      "task": null,
+      "kind": "plan",
+      "message": "Plan generated; awaiting human review and approval",
+      "created": 1794514150.8568552
+    },
+    {
+      "id": 1,
+      "project": "5b583add90404457b146a2fa152b7f19",
+      "task": null,
+      "kind": "project",
+      "message": "Project created; generate a plan for human approval",
+      "created": 1794514035.2836215
+    }
+  ]
+}

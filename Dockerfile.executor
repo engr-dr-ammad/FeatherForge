@@ -1,0 +1,9 @@
+FROM python:3.12-slim
+COPY --chmod=444 forge/acceptance.py /acceptance.py
+ENV PYTHONDONTWRITEBYTECODE=1 PLAYWRIGHT_BROWSERS_PATH=/opt/browser
+RUN --mount=type=secret,id=proxy_ca,target=/run/proxy-ca,required=false \
+    if [ -f /run/proxy-ca ]; then export PIP_CERT=/run/proxy-ca NODE_EXTRA_CA_CERTS=/run/proxy-ca; fi; \
+    pip install --no-cache-dir playwright==1.58.0 && \
+    playwright install --with-deps chromium --only-shell && \
+    chmod -R a+rX /opt/browser && rm -rf /var/lib/apt/lists/*
+ENTRYPOINT ["python", "/acceptance.py"]

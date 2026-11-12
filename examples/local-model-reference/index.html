@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Task Tracker</title>
+<h1>Task Tracker</h1>
+<form id="form">
+  <label for="title">New task</label>
+  <input id="title" required maxlength="160">
+  <button type="submit">Add task</button>
+</form>
+<ul id="tasks"></ul>
+<script>
+let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+
+function render() {
+  const tasksList = document.getElementById('tasks');
+  tasksList.innerHTML = '';
+  tasks.forEach(task => {
+    const li = document.createElement('li');
+    li.textContent = task.title;
+    li.appendChild(createCheckbox(task.id, task.done));
+    li.appendChild(createDeleteButton(task.id));
+    tasksList.appendChild(li);
+  });
+}
+
+function createCheckbox(id, checked) {
+  const checkbox = document.createElement('input');
+  checkbox.type = 'checkbox';
+  checkbox.id = 'task-' + id;
+  checkbox.checked = checked;
+  checkbox.addEventListener('change', () => {
+    tasks.find(task => task.id === id).done = checkbox.checked;
+    persist();
+  });
+  return checkbox;
+}
+
+function createDeleteButton(id) {
+  const button = document.createElement('button');
+  button.textContent = 'Delete';
+  button.addEventListener('click', () => {
+    tasks = tasks.filter(task => task.id !== id);
+    persist();
+  });
+  return button;
+}
+
+function persist() {
+  localStorage.setItem('tasks', JSON.stringify(tasks));
+  render();
+}
+
+document.getElementById('form').addEventListener('submit', function(e) {
+  e.preventDefault();
+  const title = document.getElementById('title').value.trim();
+  if (title) {
+    const id = Math.random().toString(36).substr(2, 9);
+    tasks.push({id, title, done: false});
+    persist();
+  }
+  document.getElementById('title').value = '';
+});
+
+render();
+</script>
+</html>

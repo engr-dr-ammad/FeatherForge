@@ -1,0 +1,53 @@
+{
+  "non_root": true,
+  "health": {
+    "status": "ok",
+    "worker_alive": true,
+    "version": "0.1.0",
+    "milestone": "local prototype"
+  },
+  "model": "scripted (SIMULATED MODEL)",
+  "real_docker_browser_qa": true,
+  "tasks": [
+    {
+      "kind": "implementation",
+      "state": "completed",
+      "evidence": [
+        {
+          "verification_task": "55ee7e298f2a4ea5a802894fff350081",
+          "review_task": "2f7681180653485e98fc4ec5872437b3",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "kind": "qa",
+      "state": "completed",
+      "evidence": [
+        {
+          "passed": true,
+          "exit_code": 0,
+          "tool": "docker isolated browser acceptance",
+          "command": [
+            "docker",
+            "run",
+            "[resource-limited executor]"
+          ],
+          "duration_seconds": 14.78,
+          "output": "127.0.0.1 - - [12/Nov/2026 20:26:44] \"GET / HTTP/1.1\" 200 -\n127.0.0.1 - - [12/Nov/2026 20:26:44] \"GET / HTTP/1.1\" 304 -\n127.0.0.1 - - [12/Nov/2026 20:26:45] \"GET / HTTP/1.1\" 304 -\n127.0.0.1 - - [12/Nov/2026 20:26:45] \"GET / HTTP/1.1\" 304 -\nPASS: add, persist, complete, delete, HTML injection, accessible input, no browser exceptions\n",
+          "simulated": false
+        }
+      ]
+    },
+    {
+      "kind": "review",
+      "state": "completed",
+      "evidence": [
+        {
+          "approved": true,
+          "summary": "SIMULATED reviewer: inspect the independent verification evidence and code before accepting this reference run."
+        }
+      ]
+    }
+  ]
+}

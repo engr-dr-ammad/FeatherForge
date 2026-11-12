@@ -1,0 +1,1 @@
+PASS live platform restart: all 6 completed task records retain ownership, state, workspace and identical artifact SHA-256. Worker healthy after restart.

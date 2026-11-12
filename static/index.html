@@ -1,0 +1,566 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>FeatherForge · Agent workspace</title>
+    <style>
+      :root {
+        font: 14px system-ui;
+        color: #e7ebf4;
+        background: #0c1019;
+        --line: #293249;
+        --muted: #a0abc1;
+        --accent: #a9f071;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+      }
+      button,
+      input,
+      textarea,
+      select {
+        font: inherit;
+      }
+      button {
+        cursor: pointer;
+        border: 1px solid #3a4864;
+        border-radius: 7px;
+        background: #222e43;
+        color: #edf3ff;
+        padding: 9px 13px;
+      }
+      button:hover {
+        border-color: var(--accent);
+      }
+      button.primary {
+        background: var(--accent);
+        color: #152015;
+        font-weight: 700;
+      }
+      input,
+      textarea,
+      select {
+        background: #101827;
+        color: #edf3ff;
+        border: 1px solid var(--line);
+        border-radius: 6px;
+        padding: 10px;
+        width: 100%;
+      }
+      textarea {
+        min-height: 110px;
+        resize: vertical;
+      }
+      header {
+        height: 70px;
+        border-bottom: 1px solid var(--line);
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        padding: 0 28px;
+      }
+      .logo {
+        background: var(--accent);
+        color: #101810;
+        border-radius: 10px;
+        padding: 9px;
+        font-size: 24px;
+      }
+      .brand {
+        font-size: 21px;
+        font-weight: 750;
+      }
+      .tag,
+      .badge {
+        font-size: 11px;
+        background: #253347;
+        color: #bed0ec;
+        border-radius: 5px;
+        padding: 5px 8px;
+      }
+      .tag {
+        margin-left: auto;
+        color: var(--accent);
+      }
+      aside {
+        width: 240px;
+        padding: 22px 16px;
+        border-right: 1px solid var(--line);
+        position: fixed;
+        top: 70px;
+        bottom: 0;
+        overflow: auto;
+      }
+      aside button {
+        width: 100%;
+        text-align: left;
+        margin-bottom: 8px;
+      }
+      main {
+        margin-left: 240px;
+        padding: 30px;
+        max-width: 1800px;
+      }
+      .muted {
+        color: var(--muted);
+      }
+      h1 {
+        font-size: 29px;
+        margin: 5px 0 10px;
+      }
+      h2 {
+        font-size: 16px;
+        margin: 0 0 16px;
+      }
+      h3 {
+        font-size: 14px;
+      }
+      p {
+        line-height: 1.6;
+      }
+      .row {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+        flex-wrap: wrap;
+      }
+      .spread {
+        justify-content: space-between;
+      }
+      .panel {
+        background: #121b2a;
+        border: 1px solid var(--line);
+        border-radius: 12px;
+        padding: 22px;
+        margin: 18px 0;
+      }
+      .board {
+        display: grid;
+        grid-template-columns: repeat(5, minmax(150px, 1fr));
+        gap: 12px;
+        overflow: auto;
+      }
+      .column {
+        min-height: 240px;
+        background: #101725;
+        border: 1px solid #212d42;
+        border-radius: 10px;
+        padding: 12px;
+      }
+      .column h3 {
+        text-transform: uppercase;
+        letter-spacing: 0.09em;
+        color: var(--muted);
+        font-size: 11px;
+      }
+      .task {
+        background: #1b2739;
+        border: 1px solid #34435c;
+        border-radius: 8px;
+        padding: 14px;
+        margin: 12px 0;
+        cursor: pointer;
+      }
+      .task:hover {
+        border-color: var(--accent);
+      }
+      .task p {
+        font-weight: 650;
+      }
+      .task small {
+        display: block;
+        color: #b3bfd2;
+        margin-top: 12px;
+      }
+      .two {
+        display: grid;
+        grid-template-columns: 1.2fr 1fr;
+        gap: 18px;
+      }
+      .graph {
+        display: flex;
+        gap: 12px;
+        align-items: center;
+        padding: 18px 0;
+        overflow: auto;
+      }
+      .node {
+        border: 1px solid #465674;
+        border-radius: 8px;
+        padding: 15px;
+        min-width: 150px;
+      }
+      .arrow {
+        color: var(--accent);
+      }
+      .event {
+        border-bottom: 1px solid #253047;
+        padding: 12px 0;
+        font-size: 13px;
+      }
+      .event time {
+        color: #8896af;
+        font-size: 11px;
+      }
+      .error {
+        color: #ffb5ab;
+      }
+      .good {
+        color: var(--accent);
+      }
+      pre {
+        white-space: pre-wrap;
+        word-break: break-word;
+        background: #0b111c;
+        padding: 14px;
+        max-height: 400px;
+        overflow: auto;
+        font:
+          12px ui-monospace,
+          monospace;
+      }
+      iframe {
+        width: 100%;
+        height: 380px;
+        background: white;
+        border: 0;
+        border-radius: 8px;
+      }
+      label {
+        display: block;
+        margin: 12px 0 6px;
+        color: #bdc9dc;
+      }
+      dialog {
+        background: #172237;
+        color: #eef3ff;
+        border: 1px solid #465674;
+        border-radius: 12px;
+        width: min(800px, 95vw);
+        max-height: 90vh;
+      }
+      dialog::backdrop {
+        background: #000a;
+      }
+      a {
+        color: #b8e995;
+      }
+      .hidden {
+        display: none;
+      }
+      @media (max-width: 900px) {
+        aside {
+          position: static;
+          width: auto;
+          border-bottom: 1px solid var(--line);
+        }
+        main {
+          margin: 0;
+          padding: 16px;
+        }
+        .two {
+          grid-template-columns: 1fr;
+        }
+        .board {
+          grid-template-columns: repeat(5, 190px);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <span class="logo">❧</span><span class="brand">FeatherForge</span
+      ><span class="muted">/ agent workspace</span
+      ><span class="tag">LOCAL PROTOTYPE · v0.1</span>
+    </header>
+    <aside>
+      <p class="muted">WORKSPACE</p>
+      <button class="primary" id="new">＋ New project</button>
+      <div id="projects"></div>
+      <p class="muted">CONFIGURATION</p>
+      <button id="settings">Models & roles</button>
+      <p class="muted">
+        Observable actions and evidence.<br />No private reasoning displayed.
+      </p>
+    </aside>
+    <main>
+      <div id="notice" role="status"></div>
+      <div id="welcome">
+        <p class="good">HUMAN DIRECTION. REVIEWABLE WORK.</p>
+        <h1>Your next project starts here.</h1>
+        <p class="muted">
+          Brief → reviewable plan → isolated build → browser checks → code
+          review.
+        </p>
+        <div class="panel">
+          <h2>First milestone: Task tracker</h2>
+          <p>
+            Create a small web application with add, complete, delete and
+            persistent tasks. Inspect every artifact and verification result.
+          </p>
+          <button class="primary" id="start">Create reference project</button>
+          <p class="muted">
+            Scripted mode is a clearly labeled simulated model run. Local mode
+            requires a running coding model and the Docker executor.
+          </p>
+        </div>
+      </div>
+      <div id="workspace" class="hidden"></div>
+    </main>
+    <dialog id="create">
+      <h2>Create a project</h2>
+      <label for="ptitle">Project name</label
+      ><input id="ptitle" value="Task tracker" /><label for="brief"
+        >Project brief</label
+      ><textarea id="brief">
+Build a small accessible task tracker web app. Users can add tasks, mark them complete, delete them, and keep tasks after a page reload. Use a self-contained static web app.</textarea
+      ><label for="provider">Model provider</label
+      ><select id="provider">
+        <option value="scripted">Scripted · SIMULATED MODEL</option>
+        <option value="local">
+          Real local coding model · OpenAI-compatible API
+        </option>
+      </select>
+      <p class="muted">
+        This milestone supports small static task-tracker web apps. No
+        deployment or spending tools are granted to agents.
+      </p>
+      <div class="row">
+        <button class="primary" id="createProject">Create project</button
+        ><button onclick="this.closest('dialog').close()">Close</button>
+      </div>
+    </dialog>
+    <dialog id="detail"></dialog>
+    <dialog id="config"></dialog>
+    <script>
+      let current = null,
+        project = null,
+        roles = [],
+        busy = false;
+      const $ = (id) => document.getElementById(id),
+        esc = (s) =>
+          String(s ?? "").replace(
+            /[&<>"']/g,
+            (c) =>
+              ({
+                "&": "&amp;",
+                "<": "&lt;",
+                ">": "&gt;",
+                '"': "&quot;",
+                "'": "&#39;",
+              })[c],
+          );
+      let token = sessionStorage.getItem("forge-token") || "";
+      async function api(path, method = "GET", data) {
+        const r = await fetch("/api" + path, {
+          method,
+          headers: {
+            "Content-Type": "application/json",
+            ...(token ? { Authorization: "Bearer " + token } : {}),
+          },
+          ...(data ? { body: JSON.stringify(data) } : {}),
+        });
+        if (r.status === 401) {
+          token = prompt("FeatherForge access token") || "";
+          sessionStorage.setItem("forge-token", token);
+          throw Error("Token saved. Retry the action.");
+        }
+        const body = await r.json();
+        if (!r.ok)
+          throw Error(
+            typeof body.detail === "string"
+              ? body.detail
+              : JSON.stringify(body.detail),
+          );
+        return body;
+      }
+      async function work(fn) {
+        if (busy) return;
+        busy = true;
+        try {
+          $("notice").textContent = "Working…";
+          await fn();
+          $("notice").textContent = "";
+        } catch (e) {
+          $("notice").textContent = e.message;
+          $("notice").className = "error";
+        } finally {
+          busy = false;
+        }
+      }
+      async function list() {
+        const ps = await api("/projects");
+        $("projects").innerHTML = ps
+          .map(
+            (p) =>
+              `<button data-project="${p.id}">${esc(p.title)}<small class="muted"> · ${p.provider === "scripted" ? "SIMULATED" : "LOCAL"}</small></button>`,
+          )
+          .join("");
+        document
+          .querySelectorAll("[data-project]")
+          .forEach(
+            (b) => (b.onclick = () => work(() => load(b.dataset.project))),
+          );
+      }
+      async function load(id) {
+        const next = await api("/projects/" + id);
+        current = id;
+        if (JSON.stringify(project) === JSON.stringify(next)) return;
+        project = next;
+        render();
+      }
+      function render() {
+        const p = project;
+        $("welcome").classList.add("hidden");
+        $("workspace").classList.remove("hidden");
+        const cols = [
+          ["backlog", "Backlog"],
+          ["ready", "Ready"],
+          ["running", "Running"],
+          ["review", "Review"],
+          ["completed", "Completed"],
+        ];
+        const stopped = p.tasks.filter((t) =>
+          ["failed", "blocked", "cancelled"].includes(t.state),
+        );
+        const build = p.tasks.find((t) => t.kind === "implementation");
+        $("workspace").innerHTML =
+          `<div class="row spread"><div><p class="good">PROJECT / ${esc(p.id.slice(0, 8))}</p><h1>${esc(p.title)}</h1><span class="badge">${p.provider === "scripted" ? "SIMULATED MODEL · deterministic fixtures" : "REAL LOCAL MODEL" + (p.tasks.some((t) => t.context?.starter_html) ? " · STARTER ASSISTED" : "")}</span> <span class="muted">Brief v${p.version} · artifact revision ${p.revision}</span></div><div class="row"><button data-action="pause">${p.paused ? "Resume" : "Pause scheduling"}</button>${!p.tasks.length ? '<button class="primary" data-action="plan">Generate plan</button>' : !p.approved ? '<button class="primary" data-action="approve">Approve plan & run</button>' : ""}</div></div><div class="panel"><h2>Project brief & acceptance</h2><p>${esc(p.brief)}</p><span class="muted">${p.approved ? "Plan approved. Scope frozen for this run." : "Review task objectives, roles and acceptance criteria before approving."} ${p.paused ? "Scheduling paused; in-flight tasks continue." : ""}</span></div><h2>Execution board</h2><div class="board">${cols
+            .map(
+              ([s, label]) =>
+                `<section class="column"><h3>${label} · ${p.tasks.filter((t) => t.state === s).length}</h3>${p.tasks
+                  .filter((t) => t.state === s)
+                  .map(card)
+                  .join("")}</section>`,
+            )
+            .join(
+              "",
+            )}</div>${stopped.length ? `<div class="panel"><h2 class="error">Needs attention</h2>${stopped.map(card).join("")}</div>` : ""}<div class="panel"><h2>Agent handoffs</h2><div class="graph"><div class="node">Human PM<br><small>Scope & approval</small></div><span class="arrow">→</span>${p.tasks.map((t, i) => `${i ? '<span class="arrow">→</span>' : ""}<div class="node">${esc(t.role)}<br><small>${esc(t.state)}</small></div>`).join("")}</div><p class="muted">Handoffs link task context, source artifacts and verification evidence. Dependent tasks wait for their predecessors.</p></div><div class="two"><div class="panel"><h2>Deliverables & preview</h2>${build?.artifacts?.preview ? `<p class="muted">Sandboxed preview uses temporary in-memory storage. Persistent storage is verified separately in QA. Open the task for source, diff and verification.</p><iframe title="Task tracker application preview" sandbox="allow-scripts allow-forms" id="preview"></iframe>` : '<p class="muted">Deliverables appear after the implementation produces files.</p>'}</div><div class="panel"><h2>Live activity</h2>${p.events.map((e) => `<div class="event"><time>${new Date(e.created * 1000).toLocaleTimeString()} · ${esc(e.kind)}</time><div>${esc(e.message)}</div></div>`).join("")}</div></div>`;
+        document
+          .querySelectorAll("[data-task]")
+          .forEach((e) => (e.onclick = () => detail(e.dataset.task)));
+        document.querySelectorAll("[data-action]").forEach(
+          (e) =>
+            (e.onclick = () =>
+              work(async () => {
+                await api(
+                  "/projects/" + current + "/" + e.dataset.action,
+                  "POST",
+                );
+                await load(current);
+              })),
+        );
+        if (build?.artifacts?.preview) preview(build);
+      }
+      function card(t) {
+        return `<article class="task" tabindex="0" role="button" data-task="${t.id}" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();this.click()}"><span class="badge">${esc(t.role)}</span><p>${esc(t.title)}</p><small>${esc(t.next_action || "Awaiting approval / dependencies")}</small><small>${t.deps.length} dependencies · ${t.retries}/2 retries</small></article>`;
+      }
+      async function preview(t) {
+        try {
+          const response = await fetch(
+            "/api/tasks/" + t.id + "/artifact/index.html",
+            { headers: token ? { Authorization: "Bearer " + token } : {} },
+          );
+          if (response.ok && $("preview"))
+            $("preview").srcdoc =
+              '<meta http-equiv="Content-Security-Policy" content="default-src &apos;none&apos;; script-src &apos;unsafe-inline&apos;; style-src &apos;unsafe-inline&apos;; img-src data:; connect-src &apos;none&apos;; form-action &apos;none&apos;"><script>try{localStorage.getItem("test")}catch(e){const m={};Object.defineProperty(window,"localStorage",{value:{getItem:k=>m[k]||null,setItem:(k,v)=>m[k]=v}})}<' +
+              "/script>" +
+              (await response.text());
+        } catch (e) {}
+      }
+      async function detail(id) {
+        const t = project.tasks.find((t) => t.id === id);
+        $("detail").innerHTML =
+          `<h2>${esc(t.title)}</h2><p class="badge">${esc(t.state)} · ${esc(t.role)}</p><label for="taskTitle">Objective</label><input id="taskTitle" value="${esc(t.title)}" ${project.approved ? "disabled" : ""}><label for="taskRole">Assigned agent</label><select id="taskRole" ${project.approved ? "disabled" : ""}>${roles.map((r) => `<option ${r.name === t.role ? "selected" : ""}>${esc(r.name)}</option>`).join("")}</select><label for="taskAcceptance">Acceptance criteria (one per line)</label><textarea id="taskAcceptance" ${project.approved ? "disabled" : ""}>${esc(t.acceptance.join("\n"))}</textarea><p>${esc(t.next_action)}</p><p class="muted">Dependencies: ${t.deps.map((d) => esc(project.tasks.find((x) => x.id === d)?.title)).join(", ") || "None"}<br>Budget: ${t.budget}s · retries: ${t.retries}/2</p><div class="row">${!project.approved ? '<button id="saveTask">Save task</button>' : ""}${["failed", "blocked", "cancelled"].includes(t.state) || (t.kind === "implementation" && t.state === "review" && project.tasks.some((x) => x.state === "failed")) ? '<button id="retryTask">Retry / repair</button>' : ""}${!["completed", "cancelled"].includes(t.state) ? '<button id="cancelTask">Cancel</button>' : ""}<button onclick="this.closest('dialog').close()">Close</button></div><h3>Artifacts</h3><div id="artifacts"></div><h3>Verification & review evidence</h3><pre>${esc(JSON.stringify(t.evidence, null, 2))}</pre><h3>Checkpoint & context</h3><pre>${esc(JSON.stringify({ checkpoint: t.checkpoint, context: t.context }, null, 2))}</pre>`;
+        $("detail").showModal();
+        const files = [
+          ...(t.artifacts.files || []),
+          t.artifacts.diff,
+          t.artifacts.verification,
+          t.artifacts.review,
+        ].filter(Boolean);
+        for (const f of files) {
+          const b = document.createElement("button");
+          b.textContent = f;
+          b.onclick = () =>
+            work(async () => {
+              const r = await fetch("/api/tasks/" + id + "/artifact/" + f, {
+                headers: token ? { Authorization: "Bearer " + token } : {},
+              });
+              const pre = document.createElement("pre");
+              pre.textContent = await r.text();
+              $("artifacts").append(pre);
+            });
+          $("artifacts").append(b);
+        }
+        if ($("saveTask"))
+          $("saveTask").onclick = () =>
+            work(async () => {
+              await api("/tasks/" + id, "PATCH", {
+                title: $("taskTitle").value,
+                role: $("taskRole").value,
+                acceptance: $("taskAcceptance")
+                  .value.split("\n")
+                  .filter(Boolean),
+              });
+              $("detail").close();
+              await load(current);
+            });
+        for (const action of ["retry", "cancel"])
+          if ($(action + "Task"))
+            $(action + "Task").onclick = () =>
+              work(async () => {
+                await api("/tasks/" + id + "/" + action, "POST");
+                $("detail").close();
+                await load(current);
+              });
+      }
+      $("new").onclick = $("start").onclick = () => $("create").showModal();
+      $("createProject").onclick = () =>
+        work(async () => {
+          const p = await api("/projects", "POST", {
+            title: $("ptitle").value,
+            brief: $("brief").value,
+            provider: $("provider").value,
+            idempotency_key: crypto.randomUUID(),
+          });
+          $("create").close();
+          await list();
+          await load(p.id);
+        });
+      $("settings").onclick = () =>
+        work(async () => {
+          const c = await api("/config");
+          $("config").innerHTML =
+            `<h2>Models & roles</h2><p>Local model: <strong>${esc(c.model)}</strong><br>Endpoint: ${esc(c.model_url)}<br>Concurrency: ${c.concurrency} projects · executor ${esc(c.executor)}</p><p class="muted">Configure model endpoint/key through server environment. Keys are never returned to the browser. Training collection is disabled.</p><p class="error">FeatherLM: ${esc(c.featherlm)}</p>${c.roles.map((r) => `<details><summary>${esc(r.name)} · ${r.enabled ? "enabled" : "disabled"}</summary><textarea aria-label="${esc(r.name)} instructions" id="role-${r.name}">${esc(r.instructions)}</textarea><button data-role="${r.name}" data-enabled="${r.enabled}">${r.enabled ? "Disable" : "Enable"}</button><button data-save-role="${r.name}" data-enabled="${r.enabled}">Save instructions</button></details>`).join("")}<p><button onclick="this.closest('dialog').close()">Close</button></p>`;
+          $("config").showModal();
+          document.querySelectorAll("[data-role],[data-save-role]").forEach(
+            (b) =>
+              (b.onclick = () =>
+                work(async () => {
+                  const name = b.dataset.role || b.dataset.saveRole;
+                  await api("/roles/" + name, "PUT", {
+                    enabled: b.dataset.role
+                      ? !Number(b.dataset.enabled)
+                      : !!Number(b.dataset.enabled),
+                    instructions: $("role-" + name).value,
+                  });
+                  $("config").close();
+                })),
+          );
+        });
+      work(async () => {
+        roles = (await api("/config")).roles;
+        await list();
+      });
+      setInterval(() => {
+        if (current && !busy && !$("detail").open && !$("config").open)
+          work(() => load(current));
+      }, 4000);
+    </script>
+  </body>
+</html>

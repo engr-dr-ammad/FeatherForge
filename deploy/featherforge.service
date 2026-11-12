@@ -1,0 +1,16 @@
+[Unit]
+Description=FeatherForge local workspace
+After=network.target docker.service
+
+[Service]
+Type=simple
+WorkingDirectory=%h/FeatherForge
+EnvironmentFile=-%h/.config/featherforge/environment
+ExecStart=%h/FeatherForge/.venv/bin/python -m uvicorn forge.app:app --host 127.0.0.1 --port 8000
+Restart=on-failure
+RestartSec=3
+KillMode=control-group
+TimeoutStopSec=25
+
+[Install]
+WantedBy=default.target

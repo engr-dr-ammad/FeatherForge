@@ -1,0 +1,24 @@
+/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+  from starlette.testclient import TestClient as TestClient  # noqa
+test_permissions_and_scope (test_api.APITests.test_permissions_and_scope) ... ok
+test_model_subprocess_is_killed (test_cancellation.CancellationTest.test_model_subprocess_is_killed) ... ok
+test_parent_guard_accepts_owner_and_rejects_stale_owner (test_cancellation.CancellationTest.test_parent_guard_accepts_owner_and_rejects_stale_owner) ... ok
+test_approval_and_complete_evidence (test_runtime.Tests.test_approval_and_complete_evidence) ... ok
+test_cancellation_retry_limit (test_runtime.Tests.test_cancellation_retry_limit) ... ok
+test_conflict_preserves_partial_work (test_runtime.Tests.test_conflict_preserves_partial_work) ... ok
+test_dependency_and_single_writer (test_runtime.Tests.test_dependency_and_single_writer) ... ok
+test_failed_checks_gate_completion (test_runtime.Tests.test_failed_checks_gate_completion) ... ok
+test_featherlm_coding_dispatch_is_denied (test_runtime.Tests.test_featherlm_coding_dispatch_is_denied) ... ok
+test_idempotent_creation (test_runtime.Tests.test_idempotent_creation) ... ok
+test_isolated_projects (test_runtime.Tests.test_isolated_projects) ... ok
+test_old_attempt_cannot_resume_after_retry (test_runtime.Tests.test_old_attempt_cannot_resume_after_retry) ... ok
+test_parallel_file_writers_are_isolated (test_runtime.Tests.test_parallel_file_writers_are_isolated) ... ok
+test_repair_invalidates_downstream_gates (test_runtime.Tests.test_repair_invalidates_downstream_gates) ... ok
+test_restart_and_ownership (test_runtime.Tests.test_restart_and_ownership) ... ok
+test_reviewer_cannot_complete_cancelled_build (test_runtime.Tests.test_reviewer_cannot_complete_cancelled_build) ... ok
+test_traversal_rejected (test_runtime.Tests.test_traversal_rejected) ... ok
+
+----------------------------------------------------------------------
+Ran 17 tests in 0.948s
+
+OK

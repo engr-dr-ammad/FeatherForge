@@ -1,0 +1,19 @@
+services:
+  dashboard:
+    build: .
+    user: "${FORGE_UID:-1000}:${FORGE_GID:-1000}"
+    group_add: ["${FORGE_DOCKER_GID:?Set the host Docker socket group ID}"]
+    ports: ["127.0.0.1:8000:8000"]
+    environment:
+      FORGE_DATA: ${PWD}/data
+      FORGE_TOKEN: ${FORGE_TOKEN:?Set a dashboard access token}
+      FORGE_MODEL: ${FORGE_MODEL:-qwen2.5-coder:7b}
+      FORGE_MODEL_URL: ${FORGE_MODEL_URL:-http://host.docker.internal:11434/v1}
+    volumes:
+      - ${PWD}/data:${PWD}/data
+      - /var/run/docker.sock:/var/run/docker.sock
+    extra_hosts: ["host.docker.internal:host-gateway"]
+    restart: unless-stopped
+# Trusted single-user orchestrator controls the host Docker daemon. Never expose
+# this service to untrusted users. Generated apps only enter resource-limited,
+# networkless executor containers and never receive the Docker socket.

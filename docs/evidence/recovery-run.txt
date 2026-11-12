@@ -1,0 +1,2 @@
+PASS real process restart: task owner retained, interrupted task blocked, associated container removed
+PASS explicit cancellation removes actual child container

@@ -1,0 +1,1 @@
+PASS dashboard: create, plan, edit task, approve, completed gates, sandbox preview interaction; no JS errors

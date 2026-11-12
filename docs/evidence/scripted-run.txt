@@ -1,0 +1,75 @@
+PROJECT 8395338fce1c4379917d761b7f049698
+RUN implementation
+STATE review Await QA and code review
+RUN qa
+STATE completed Reviewer must inspect passing evidence
+RUN review
+STATE completed Deliverable available for human inspection
+{
+  "project": "8395338fce1c4379917d761b7f049698",
+  "provider": "scripted",
+  "tasks": [
+    {
+      "id": "5e7cbc2daea04f19978ef728e1654d5a",
+      "kind": "implementation",
+      "state": "completed",
+      "artifacts": {
+        "files": [
+          "index.html"
+        ],
+        "diff": "changes.diff",
+        "preview": "index.html",
+        "provider": "scripted (SIMULATED MODEL)",
+        "verification": "qa-result.json",
+        "review": "review.json"
+      },
+      "evidence": [
+        {
+          "verification_task": "1956917fa0e74697a0e2673f718f2ffc",
+          "review_task": "27266abd397a42b3992e030c138c5243",
+          "passed": true
+        }
+      ],
+      "next_action": "Deliverable available for human inspection"
+    },
+    {
+      "id": "1956917fa0e74697a0e2673f718f2ffc",
+      "kind": "qa",
+      "state": "completed",
+      "artifacts": {
+        "verification": "qa-result.json"
+      },
+      "evidence": [
+        {
+          "passed": true,
+          "exit_code": 0,
+          "tool": "docker isolated browser acceptance",
+          "command": [
+            "docker",
+            "run",
+            "[resource-limited executor]"
+          ],
+          "duration_seconds": 16.65,
+          "output": "127.0.0.1 - - [12/Nov/2026 19:46:38] \"GET / HTTP/1.1\" 200 -\n127.0.0.1 - - [12/Nov/2026 19:46:38] \"GET / HTTP/1.1\" 304 -\n127.0.0.1 - - [12/Nov/2026 19:46:38] \"GET / HTTP/1.1\" 304 -\n127.0.0.1 - - [12/Nov/2026 19:46:38] \"GET / HTTP/1.1\" 304 -\nPASS: add, persist, complete, delete, HTML injection, accessible input, no browser exceptions\n",
+          "simulated": false
+        }
+      ],
+      "next_action": "Reviewer must inspect passing evidence"
+    },
+    {
+      "id": "27266abd397a42b3992e030c138c5243",
+      "kind": "review",
+      "state": "completed",
+      "artifacts": {
+        "review": "review.json"
+      },
+      "evidence": [
+        {
+          "approved": true,
+          "summary": "SIMULATED reviewer: inspect the independent verification evidence and code before accepting this reference run."
+        }
+      ],
+      "next_action": "Deliverable available for human inspection"
+    }
+  ]
+}

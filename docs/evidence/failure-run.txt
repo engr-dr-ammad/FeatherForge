@@ -1,0 +1,16 @@
+PASS: actual failed browser check prevents build completion and reviewer scheduling
+[
+  {
+    "passed": false,
+    "exit_code": 1,
+    "tool": "docker isolated browser acceptance",
+    "command": [
+      "docker",
+      "run",
+      "[resource-limited executor]"
+    ],
+    "duration_seconds": 19.9,
+    "output": "127.0.0.1 - - [12/Nov/2026 19:47:39] \"GET / HTTP/1.1\" 200 -\nTraceback (most recent call last):\n  File \"/acceptance.py\", line 18, in <module>\n    assert page.get_by_text('Acceptance task',exact=False).count()==1,'Add task failed'\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: Add task failed\n",
+    "simulated": false
+  }
+]

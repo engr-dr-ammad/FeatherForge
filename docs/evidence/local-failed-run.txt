@@ -1,0 +1,192 @@
+PROJECT 25054e6c0d0340d18230de6df2abafd2
+RUN implementation
+STATE review Await QA and code review
+RUN qa
+STATE failed Acceptance checks failed; inspect verification evidence
+{
+  "project": "25054e6c0d0340d18230de6df2abafd2",
+  "provider": "local",
+  "tasks": [
+    {
+      "id": "2f9d9382b2ca45c785e68132bb235040",
+      "kind": "implementation",
+      "state": "review",
+      "artifacts": {
+        "files": [
+          "index.html"
+        ],
+        "diff": "changes.diff",
+        "preview": "index.html",
+        "provider": "local OpenAI-compatible model"
+      },
+      "evidence": [],
+      "next_action": "Await QA and code review"
+    },
+    {
+      "id": "28d77e67571245c3b848af81fafe69a1",
+      "kind": "qa",
+      "state": "failed",
+      "artifacts": {
+        "verification": "qa-result.json"
+      },
+      "evidence": [
+        {
+          "passed": false,
+          "exit_code": 1,
+          "tool": "docker isolated browser acceptance",
+          "command": [
+            "docker",
+            "run",
+            "[resource-limited executor]"
+          ],
+          "duration_seconds": 8.48,
+          "output": "127.0.0.1 - - [12/Nov/2026 19:40:57] \"GET / HTTP/1.1\" 200 -\nTraceback (most recent call last):\n  File \"/acceptance.py\", line 18, in <module>\n    assert page.get_by_text('Acceptance task',exact=True).count()==1,'Add task failed'\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: Add task failed\n",
+          "simulated": false
+        }
+      ],
+      "next_action": "Acceptance checks failed; inspect verification evidence"
+    },
+    {
+      "id": "79f2c2f1ef0e4e33b8903c8f34c8565a",
+      "kind": "review",
+      "state": "ready",
+      "artifacts": {},
+      "evidence": [],
+      "next_action": ""
+    }
+  ]
+}
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/workspace/FeatherForge/tests/integration_demo.py", line 21, in <module>
+    assert len(project['tasks'])==3 and all(t['state']=='completed' for t in project['tasks']),'Workflow did not pass all gates'
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Workflow did not pass all gates
+CORRECTED QA failed [{"passed": false, "exit_code": 125, "tool": "docker isolated browser acceptance", "command": ["docker", "run", "[resource-limited executor]"], "duration_seconds": 4.34, "output": "docker: Error response from daemon: open /home/dockerd/.local/share/docker/vfs/dir/ca3e5a81552ec3e333e12dcd90977bc17a3e56dc792e9352b2be2817af00b701/usr/lib/x86_64-linux-gnu/libglib-2.0.so.0.8400.4: no space left on device\n\nRun 'docker run --help' for more information\n", "simulated": false}]
+REPAIR RUN implementation
+REPAIR STATE failed OSError; inspect local service health
+{
+  "project": "25054e6c0d0340d18230de6df2abafd2",
+  "provider": "local",
+  "model": "Qwen2.5-Coder-1.5B-Instruct Q4_K_M",
+  "tasks": [
+    {
+      "id": "2f9d9382b2ca45c785e68132bb235040",
+      "project": "25054e6c0d0340d18230de6df2abafd2",
+      "title": "Build task tracker",
+      "role": "frontend",
+      "kind": "implementation",
+      "state": "failed",
+      "deps": [],
+      "acceptance": [
+        "add, complete, delete, persist tasks"
+      ],
+      "context": {
+        "brief_version": 1,
+        "brief": "Build a small accessible task tracker web app. Add tasks, mark complete, delete, persist after reload. Self-contained index.html. Use a labeled textbox, Add task button, checkbox and Delete buttons."
+      },
+      "workspace": "/workspace/FeatherForge/data-local/workspaces/2f9d9382b2ca45c785e68132bb235040/86a754f7eec54df8900c872f77e840cb",
+      "artifacts": {
+        "files": [
+          "index.html"
+        ],
+        "diff": "changes.diff",
+        "preview": "index.html",
+        "provider": "local OpenAI-compatible model"
+      },
+      "evidence": [],
+      "next_action": "OSError; inspect local service health",
+      "retries": 1,
+      "budget": 600,
+      "checkpoint": {
+        "brief_version": 1,
+        "revision": 1,
+        "run_key": "fbcbcf632c504d12ad3fb47dc9122fed"
+      },
+      "run_key": "fbcbcf632c504d12ad3fb47dc9122fed",
+      "base_revision": 1
+    },
+    {
+      "id": "28d77e67571245c3b848af81fafe69a1",
+      "project": "25054e6c0d0340d18230de6df2abafd2",
+      "title": "Verify behavior",
+      "role": "qa",
+      "kind": "qa",
+      "state": "ready",
+      "deps": [
+        "2f9d9382b2ca45c785e68132bb235040"
+      ],
+      "acceptance": [
+        "passing browser checks"
+      ],
+      "context": {
+        "brief_version": 1,
+        "brief": "Build a small accessible task tracker web app. Add tasks, mark complete, delete, persist after reload. Self-contained index.html. Use a labeled textbox, Add task button, checkbox and Delete buttons."
+      },
+      "workspace": "/workspace/FeatherForge/data-local/workspaces/2f9d9382b2ca45c785e68132bb235040/86a754f7eec54df8900c872f77e840cb",
+      "artifacts": {
+        "verification": "qa-result.json"
+      },
+      "evidence": [
+        {
+          "passed": false,
+          "exit_code": 125,
+          "tool": "docker isolated browser acceptance",
+          "command": [
+            "docker",
+            "run",
+            "[resource-limited executor]"
+          ],
+          "duration_seconds": 4.34,
+          "output": "docker: Error response from daemon: open /home/dockerd/.local/share/docker/vfs/dir/ca3e5a81552ec3e333e12dcd90977bc17a3e56dc792e9352b2be2817af00b701/usr/lib/x86_64-linux-gnu/libglib-2.0.so.0.8400.4: no space left on device\n\nRun 'docker run --help' for more information\n",
+          "simulated": false
+        }
+      ],
+      "next_action": "Await repaired build and rerun verification",
+      "retries": 1,
+      "budget": 600,
+      "checkpoint": {
+        "brief_version": 1,
+        "revision": 1,
+        "run_key": "5b79dc38b27e4937816897bc0d9a2a53"
+      },
+      "run_key": "5b79dc38b27e4937816897bc0d9a2a53",
+      "base_revision": 1
+    },
+    {
+      "id": "79f2c2f1ef0e4e33b8903c8f34c8565a",
+      "project": "25054e6c0d0340d18230de6df2abafd2",
+      "title": "Review code",
+      "role": "reviewer",
+      "kind": "review",
+      "state": "ready",
+      "deps": [
+        "28d77e67571245c3b848af81fafe69a1"
+      ],
+      "acceptance": [
+        "review approved"
+      ],
+      "context": {
+        "brief_version": 1,
+        "brief": "Build a small accessible task tracker web app. Add tasks, mark complete, delete, persist after reload. Self-contained index.html. Use a labeled textbox, Add task button, checkbox and Delete buttons."
+      },
+      "workspace": null,
+      "artifacts": {},
+      "evidence": [],
+      "next_action": "Await repaired build and rerun verification",
+      "retries": 0,
+      "budget": 600,
+      "checkpoint": {},
+      "run_key": null,
+      "base_revision": 0
+    }
+  ]
+}
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/workspace/FeatherForge/tests/local_repair.py", line 21, in <module>
+    assert all(t['state']=='completed' for t in p['tasks']),'Local model failed a required gate'
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Local model failed a required gate

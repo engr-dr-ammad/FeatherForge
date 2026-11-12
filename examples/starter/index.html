@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Task Tracker</title>
+<h1>Task Tracker</h1>
+<form id="form">
+  <label for="title">New task</label>
+  <input id="title" required maxlength="160">
+  <button type="submit">Add task</button>
+</form>
+<ul id="tasks"></ul>
+<script>
+// Implement the application below. This starter contains NO behavior.
+// Use one array loaded from localStorage.getItem('tasks') or [].
+// persist(): save the array to localStorage and call render().
+// render(): replace children of #tasks only, never the form or body.
+// For each task, create li, input checkbox, span with textContent, Delete button.
+// Checkbox change: update task.done and persist().
+// Delete click: remove the task by unique id from the global array and persist().
+// Form submit: preventDefault, trim #title, append {id,title,done:false}, clear,
+// and persist(). Use stable unique IDs and ignore empty strings.
+// Call render() once on page load. All state changes must persist after reload.
+</script>
+</html>
